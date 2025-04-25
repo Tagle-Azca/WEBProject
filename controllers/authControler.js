@@ -13,7 +13,8 @@ export const test = asyncHandler(async (req, res, next) => {
 // signUp controller
 export const signUp = asyncHandler(async (req, res, next) => {
   const { username, email, password } = req.body;
-  const hashedPassword = bcryptjs.hashSync(password, 10);
+  const hashedPassword = await bcryptjs.hash(password, 10);
+const isPasswordValid = await bcryptjs.compare(password, validUser.password);
   const newUser = new User({ username, email, password: hashedPassword });
   try {
     await newUser.save();
@@ -41,7 +42,6 @@ export const signIn = asyncHandler(async (req, res, next) => {
       return next(errorHandler(404, "User not found"));
     }
 
-    console.log('Password from database:', validUser.password);
     
     const isPasswordValid = bcryptjs.compareSync(password, validUser.password);
     if (!isPasswordValid) {
