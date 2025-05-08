@@ -17,9 +17,6 @@ router.delete("/:id", verifyToken, deleteUser);
 // Set Vdot
 router.put("/vdot/:id", verifyToken, setVdot);
 // Get all users
-router.get("/", verifyToken, getAllUsers);
-// Delete user
-router.delete("/:id", verifyToken, deleteUser);
 
 
 export default router;

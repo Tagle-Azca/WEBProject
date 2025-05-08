@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
       minlength: [6, "Password must be at least 6 characters"],
-      select: false, // Don't include password in queries by default
+      select: false, 
     },
     role: {
       type: String,
@@ -216,9 +216,15 @@ const userSchema = new mongoose.Schema(
     ],
   },
   {
-    timestamps: true, // This replaces the manual createdAt and adds updatedAt
+    timestamps: true, 
   }
 );
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
 
 const User = mongoose.model("User", userSchema);
 export default User;

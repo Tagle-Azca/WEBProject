@@ -6,7 +6,7 @@ import {
   signIn,
   google,
   signOut,
-} from "../controllers/authControler.js";
+} from "../controllers/authController.js";
 const router = express.Router();
 
 // declare routes

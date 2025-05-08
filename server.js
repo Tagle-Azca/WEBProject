@@ -1,13 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
-dotenv.config();
 import colors from "colors";
+dotenv.config();
 import authRouter from "./routes/authRoutes.js"
 import userRouter from "./routes/userRoutes.js";
 import connectDB from "./config/connection.js";
 
 const PORT = process.env.PORT || 3000;
-
 
 connectDB();
 
@@ -20,6 +19,7 @@ app.listen(PORT,() => {
 })
 
 
+// routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
 
